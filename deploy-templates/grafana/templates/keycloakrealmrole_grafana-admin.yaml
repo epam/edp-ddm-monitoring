@@ -1,0 +1,11 @@
+apiVersion: v1.edp.epam.com/v1alpha1
+kind: KeycloakRealmRole
+metadata:
+  annotations:
+    helm.sh/resource-policy: keep
+  name: grafana-admin
+  namespace: user-management
+spec:
+  composite: false
+  name: grafana-admin
+  realm: openshift

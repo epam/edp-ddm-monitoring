@@ -1,0 +1,5 @@
+apiVersion: v2
+description: Tuning of openshift-monitoring
+type: application
+name: openshift-monitoring
+version: 1.0.0

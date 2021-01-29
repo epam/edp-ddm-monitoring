@@ -1,0 +1,59 @@
+{{ $secret := (lookup "v1" "Secret" "user-management" "grafana-keycloakclient-secret").data }}
+{{ $oauthclientSecret := randAlphaNum 16 }}
+
+---
+
+kind: Secret
+apiVersion: v1
+metadata:
+  name: grafana-keycloakclient-secret
+  namespace: user-management
+data:
+  clientSecret: {{ if $secret }}{{ $secret.clientSecret }}{{ else }}{{ b64enc $oauthclientSecret }}{{ end }}
+type: Opaque
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.names.fullname" . }}-envvars
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: grafana
+data:
+  GF_SECURITY_ADMIN_USER: {{ .Values.admin.user | quote }}
+  {{- if .Values.imageRenderer.enabled }}
+  {{- $domain := .Values.clusterDomain }}
+  {{- $namespace := .Release.Namespace }}
+  GF_RENDERING_SERVER_URL: "http://{{ include "common.names.fullname" . }}-image-renderer.{{ $namespace }}.svc.{{ $domain }}:{{ .Values.imageRenderer.service.port }}/render"
+  GF_RENDERING_CALLBACK_URL: "http://{{ include "common.names.fullname" . }}.{{ $namespace }}.svc.{{ $domain }}:{{ .Values.service.port }}/"
+  {{- end }}
+  {{- if .Values.plugins }}
+  GF_INSTALL_PLUGINS: {{ .Values.plugins | quote }}
+  {{- else }}
+  GF_INSTALL_PLUGINS: ""
+  {{- end }}
+  GF_PATHS_PLUGINS: "/opt/bitnami/grafana/data/plugins"
+  GF_AUTH_ANONYMOUS_ENABLED: 'false'
+  GF_AUTH_LDAP_ENABLED: 'false'
+  GF_AUTH_LDAP_CONFIG_FILE: "/opt/bitnami/grafana/conf/ldap.toml"
+  GF_AUTH_LDAP_ALLOW_SIGN_UP: 'false'
+  GF_PATHS_PROVISIONING: "/opt/bitnami/grafana/conf/provisioning"
+  GF_PATHS_CONFIG: "/opt/bitnami/grafana/conf/grafana.ini"
+  GF_PATHS_DATA: "/opt/bitnami/grafana/data"
+  GF_PATHS_LOGS: "/opt/bitnami/grafana/logs"
+  GF_RENDERING_SERVER_URL: "http://grafana-image-renderer.grafana-monitoring.svc.cluster.local:8080/render"
+  GF_RENDERING_CALLBACK_URL: 'http://grafana.grafana-monitoring.svc.cluster.local:3000/'
+  GF_SERVER_ROOT_URL: https://grafana-grafana-monitoring.{{ .Values.dnsWildcard }}/
+  GF_AUTH_BASIC_ENABLED: 'false'
+  GF_AUTH_GENERIC_OAUTH_ENABLED: 'true'
+  GF_AUTH_GENERIC_OAUTH_CLIENT_ID: "grafana"
+  GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: {{ if $secret }}{{ b64dec $secret.clientSecret }}{{ else }}{{ $oauthclientSecret }}{{ end }}
+  GF_AUTH_GENERIC_OAUTH_SCOPES: "openid email profile roles"
+  GF_AUTH_GENERIC_OAUTH_AUTH_URL: "https://platform-keycloak.{{ .Values.dnsWildcard }}/auth/realms/openshift/protocol/openid-connect/auth"
+  GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://platform-keycloak.{{ .Values.dnsWildcard }}/auth/realms/openshift/protocol/openid-connect/token"
+  GF_AUTH_GENERIC_OAUTH_API_URL: "https://platform-keycloak.{{ .Values.dnsWildcard }}/auth/realms/openshift/protocol/openid-connect/userinfo"
+  GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: "contains(realm_access.roles[*], 'grafana-admin') && 'Admin' || contains(realm_access.roles[*], 'grafana-viewer') && 'Viewer'"
+  GF_SECURITY_ADMIN_USER: admin
+  GF_LOG_LEVEL: debug
