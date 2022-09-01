@@ -1,0 +1,28 @@
+apiVersion: v1.edp.epam.com/v1alpha1
+kind: KeycloakClient
+metadata:
+  name: grafana
+  namespace: user-management
+  annotations:
+    "helm.sh/resource-policy": keep
+spec:
+  clientId: grafana
+  public: false
+  directAccess: false
+  realmRoles: []
+  audRequired: false
+  secret: "grafana-keycloakclient-secret"
+  advancedProtocolMappers: false
+  webUrl: "https://grafana-grafana-monitoring.{{ .Values.dnsWildcard }}/login/generic_oauth"
+  targetRealm: openshift
+  protocolMappers:
+    - config:
+        access.token.claim: 'true'
+        claim.name: "realm_access.roles"
+        id.token.claim: 'true'
+        jsonType.label: String
+        multivalued: 'true'
+        userinfo.token.claim: 'false'
+      name: "realm roles"
+      protocol: openid-connect
+      protocolMapper: oidc-usermodel-realm-role-mapper

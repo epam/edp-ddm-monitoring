@@ -1,0 +1,40 @@
+helmDefaults:
+  wait: true
+  timeout: 1800
+
+missingFileHandler: Warn
+
+repositories:
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+
+releases:
+  - name: grafana
+    namespace: grafana-monitoring
+    chart: grafana
+    values:
+      - grafana/values.yaml
+      - values.yaml
+      - values.gotmpl
+    hooks:
+      - events: [ "presync" ]
+        command: "sh"
+        args: [ "../scripts/script.sh", "{{`{{ .Release.Namespace }}`}}" ]
+      - events: [ "presync" ]
+        command: "oc"
+        args: [ "apply", "-f", "dashboards/", "-n", "{{`{{ .Release.Namespace }}`}}" ]
+      - events: [ "presync" ]
+        command: "oc"
+        args: [ "adm", "policy", "add-scc-to-user", "anyuid", "-z", "grafana", "-n", "{{`{{ .Release.Namespace }}`}}" ]
+      - events: [ "postsync" ]
+        command: "sh"
+        args: [ "../scripts/annotation_sa.sh", "{{`{{ .Release.Namespace }}`}}" ]
+      - events: [ "postuninstall" ]
+        command: "oc"
+        args: [ "adm", "policy", "remove-scc-from-user", "anyuid", "-z", "grafana", "-n", "{{`{{ .Release.Namespace }}`}}" ]
+  - name: openshift-monitoring
+    namespace: openshift-monitoring
+    chart: openshift-monitoring
+    values:
+      - values.yaml
+      - values.gotmpl

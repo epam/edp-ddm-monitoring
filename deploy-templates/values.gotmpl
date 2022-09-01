@@ -1,0 +1,10 @@
+{{ $cloudProvider := exec "oc" (list "get" "infrastructure" "cluster" "--no-headers" "-o" "jsonpath='{.status.platform}'") }}
+cloudProvider: {{ $cloudProvider }}
+
+dnsWildcard: {{ requiredEnv "dnsWildcard" }}
+
+global:
+  storageClass: {{ if eq $cloudProvider "AWS" }}"gp2"{{ else }}{{ env "platformStorageClass" }}{{ end }}
+  storageSize: 200Gi
+  whiteListIP:
+    adminRoutes: {{ env "ADMIN_ROUTES_WHITELIST_CIDR" }}

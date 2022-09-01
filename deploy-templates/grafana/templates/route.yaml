@@ -1,0 +1,18 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  annotations:
+    {{ template "admin-routes.whitelist.annotation" . }}
+  name: grafana
+  namespace: {{ .Release.Namespace }}
+spec:
+  host: {{ .Values.grafanaHost }}
+  to:
+    kind: Service
+    name: grafana
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+  wildcardPolicy: None
