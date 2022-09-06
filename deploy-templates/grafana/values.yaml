@@ -195,7 +195,18 @@ dashboardsConfigMaps:
     fileName: keycloak-metrics.json
   - configMapName: grafana-dashboard-keycloak-x-microprofile-metrics
     fileName: keycloak-x-microprofile-metrics.json
-
+  - configMapName: grafana-dashboard-crunchy-pgbackrest
+    fileName: pgbackrest.json
+  - configMapName: grafana-dashboard-crunchy-pod-details
+    fileName: pod_details.json
+  - configMapName: grafana-dashboard-crunchy-postgresql-details
+    fileName: postgresql_details.json
+  - configMapName: grafana-dashboard-crunchy-postgresql-overview
+    fileName: postgresql_overview.json
+  - configMapName: grafana-dashboard-crunchy-postgresql-service-health
+    fileName: postgresql_service_health.json
+  - configMapName: grafana-dashboard-crunchy-query-statistics
+    fileName: query_statistics.json
 
 ##  - configMapName: grafana-dashboard-cluster-total
 ##    fileName: grafana-dashboard-cluster-total.json
