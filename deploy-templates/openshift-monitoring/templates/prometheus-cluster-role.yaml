@@ -1,0 +1,13 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: monitoring-reader
+rules:
+  - verbs:
+      - list
+    apiGroups:
+      - '*'
+    resources:
+      - pods
+      - services
+      - endpoints
