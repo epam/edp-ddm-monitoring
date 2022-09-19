@@ -151,6 +151,8 @@ dashboardsProvider:
 ##     fileName: myotherdashboard.json
 ##
 dashboardsConfigMaps:
+  - configMapName: grafana-dashboard-cluster-total
+    fileName: cluster-total.json
   - configMapName: grafana-dashboard-etcd
     fileName: etcd.json
   - configMapName: grafana-dashboard-k8s-resources-cluster
