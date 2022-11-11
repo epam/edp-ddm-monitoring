@@ -4,7 +4,7 @@ GRAFANA_NAMESPACE=$1
 oc create namespace ${GRAFANA_NAMESPACE} || echo "Already exist"
 oc -n ${GRAFANA_NAMESPACE} create sa ocp-prometheus || echo "already exist"
 oc -n ${GRAFANA_NAMESPACE} adm policy add-cluster-role-to-user view -z ocp-prometheus || echo "already exist"
-TOKEN=$(oc -n ${GRAFANA_NAMESPACE} serviceaccounts get-token ocp-prometheus)
+TOKEN=$(oc -n ${GRAFANA_NAMESPACE} get secrets -o name | grep ocp-prometheus-token | xargs -I{} oc -n ${GRAFANA_NAMESPACE} get {} -o=jsonpath={.data.token} | base64 --decode)
 echo "-> Create OCP Prometheus datasource secret..."
 cat << EOF > datasource-secret.yaml
 apiVersion: 1
