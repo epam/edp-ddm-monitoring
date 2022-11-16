@@ -207,6 +207,8 @@ dashboardsConfigMaps:
     fileName: postgresql_service_health.json
   - configMapName: grafana-dashboard-crunchy-query-statistics
     fileName: query_statistics.json
+  - configMapName: grafana-dashboard-redis
+    fileName: redis.json
 
 ##  - configMapName: grafana-dashboard-cluster-total
 ##    fileName: grafana-dashboard-cluster-total.json
