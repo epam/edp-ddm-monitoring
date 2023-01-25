@@ -1246,64 +1246,37 @@ data:
         "list": [
           {
             "allValue": null,
-            "current": {
-              "selected": true,
-              "text": "mdtu-ddm-edp-cicd-kraken-qa",
-              "value": "mdtu-ddm-edp-cicd-kraken-qa"
-            },
-            "datasource": null,
+            "current": {},
+            "datasource": "Prometheus",
             "definition": "label_values(redis_up, namespace)",
             "description": null,
             "error": null,
             "hide": 0,
             "includeAll": false,
-            "label": "namespace",
+            "label": "Namespace",
             "multi": false,
             "name": "namespace",
-            "options": [
-              {
-                "selected": true,
-                "text": "mdtu-ddm-edp-cicd-kraken-qa",
-                "value": "mdtu-ddm-edp-cicd-kraken-qa"
-              },
-              {
-                "selected": false,
-                "text": "mdtu-ddm-edp-cicd-platform-sit",
-                "value": "mdtu-ddm-edp-cicd-platform-sit"
-              }
-            ],
+            "options": [],
             "query": {
               "query": "label_values(redis_up, namespace)",
               "refId": "StandardVariableQuery"
             },
-            "refresh": 0,
+            "refresh": 1,
             "regex": "",
             "skipUrlSync": false,
-            "sort": 0,
-            "tagValuesQuery": "",
-            "tags": [],
-            "tagsQuery": "",
-            "type": "query",
-            "useTags": false
+            "sort": 1,
+            "type": "query"
           },
           {
             "allValue": null,
-            "current": {
-              "selected": true,
-              "text": [
-                "rfr-redis-sentinel-2"
-              ],
-              "value": [
-                "rfr-redis-sentinel-2"
-              ]
-            },
+            "current": {},
             "datasource": "Prometheus",
             "definition": "label_values(redis_up, pod)",
             "description": null,
             "error": null,
             "hide": 0,
             "includeAll": false,
-            "label": "pod",
+            "label": "Pod",
             "multi": true,
             "name": "pod",
             "options": [],
@@ -1311,15 +1284,11 @@ data:
               "query": "label_values(redis_up, pod)",
               "refId": "StandardVariableQuery"
             },
-            "refresh": 2,
+            "refresh": 1,
             "regex": "",
             "skipUrlSync": false,
             "sort": 1,
-            "tagValuesQuery": "",
-            "tags": [],
-            "tagsQuery": "",
-            "type": "query",
-            "useTags": false
+            "type": "query"
           }
         ]
       },
