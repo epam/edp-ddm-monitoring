@@ -18,6 +18,9 @@ spec:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
         app.kubernetes.io/component: grafana
       annotations:
+        {{- if ne .Values.cloudProvider "AWS" }}
+        backup.velero.io/backup-volumes: data
+        {{- end }}
         {{- if (include "grafana.createAdminSecret" .) }}
         checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
         {{- end }}
