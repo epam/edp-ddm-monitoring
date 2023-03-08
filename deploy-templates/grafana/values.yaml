@@ -209,6 +209,8 @@ dashboardsConfigMaps:
     fileName: query_statistics.json
   - configMapName: grafana-dashboard-redis
     fileName: redis.json
+  - configMapName: grafana-dashboard-camunda-metrics
+    fileName: camunda-metrics.json
 
 ##  - configMapName: grafana-dashboard-cluster-total
 ##    fileName: grafana-dashboard-cluster-total.json
