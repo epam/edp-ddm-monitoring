@@ -1,6 +1,5 @@
 {{ $cloudProvider := exec "oc" (list "get" "infrastructure" "cluster" "--no-headers" "-o" "jsonpath='{.status.platform}'") }}
 cloudProvider: {{ $cloudProvider }}
-
 dnsWildcard: {{ requiredEnv "dnsWildcard" }}
 
 global:

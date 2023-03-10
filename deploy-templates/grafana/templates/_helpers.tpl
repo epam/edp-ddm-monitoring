@@ -176,6 +176,10 @@ Return the appropriate apiVersion for deployment.
 {{- end -}}
 {{- end -}}
 
+{{- define "grafana.host" -}}
+{{- printf "https://%s-%s.%s" "grafana" "grafana-monitoring" .Values.dnsWildcard }}
+{{- end -}}
+
 {{- define "keycloak.realm" -}}
 {{- printf "%s-%s" .Release.Namespace .Values.keycloak.realm }}
 {{- end -}}
