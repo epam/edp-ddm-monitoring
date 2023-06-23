@@ -211,6 +211,8 @@ dashboardsConfigMaps:
     fileName: redis.json
   - configMapName: grafana-dashboard-camunda-metrics
     fileName: camunda-metrics.json
+  - configMapName: grafana-dashboard-kong-public-api
+    fileName: grafana-dashboard-kong-public-api.json
 
 ##  - configMapName: grafana-dashboard-cluster-total
 ##    fileName: grafana-dashboard-cluster-total.json
