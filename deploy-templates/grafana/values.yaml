@@ -639,6 +639,6 @@ keycloak:
   realm: openshift
 
 edpComponent:
-  description: "Візуалізація та надання доступу до даних моніторингу"
+  description: "Візуалізація та надання доступу до даних моніторингу."
   displayName: "Веб-інтерфейс моніторингу Платформи (Grafana)"
   operationalZone: "platform-operational-zone"
