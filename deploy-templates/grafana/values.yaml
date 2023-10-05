@@ -213,6 +213,18 @@ dashboardsConfigMaps:
     fileName: camunda-metrics.json
   - configMapName: grafana-dashboard-kong-public-api
     fileName: grafana-dashboard-kong-public-api.json
+  - configMapName: grafana-dashboard-jvm
+    fileName: grafana-dashboard-jvm.json
+  - configMapName: grafana-dashboard-istio-workload
+    fileName: grafana-dashboard-istio-workload.json
+  - configMapName: grafana-dashboard-istio-service
+    fileName: grafana-dashboard-istio-service.json
+  - configMapName: grafana-dashboard-istio-performance
+    fileName: grafana-dashboard-istio-performance.json
+  - configMapName: grafana-dashboard-istio-mesh
+    fileName: grafana-dashboard-istio-mesh.json
+  - configMapName: grafana-dashboard-istio-control-plane
+    fileName: grafana-dashboard-istio-control-plane.json
 
 ##  - configMapName: grafana-dashboard-cluster-total
 ##    fileName: grafana-dashboard-cluster-total.json
