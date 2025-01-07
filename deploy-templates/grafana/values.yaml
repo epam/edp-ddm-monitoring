@@ -183,6 +183,8 @@ dashboardsConfigMaps:
     fileName: redash.json
   - configMapName: grafana-dashboard-spring-boot
     fileName: spring-boot.json
+  - configMapName: grafana-dashboard-spring-boot-observability
+    fileName: spring-boot-observability.json
   - configMapName: grafana-dashboard-strimzi-kafka
     fileName: strimzi-kafka.json
   - configMapName: grafana-dashboard-volume-load
@@ -225,6 +227,8 @@ dashboardsConfigMaps:
     fileName: grafana-dashboard-istio-mesh.json
   - configMapName: grafana-dashboard-istio-control-plane
     fileName: grafana-dashboard-istio-control-plane.json
+  - configMapName: grafana-dashboard-registry-monitoring
+    fileName: grafana-dashboard-registry-monitoring.json
 
 ##  - configMapName: grafana-dashboard-cluster-total
 ##    fileName: grafana-dashboard-cluster-total.json
